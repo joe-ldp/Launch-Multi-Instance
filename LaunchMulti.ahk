@@ -1,7 +1,7 @@
 global numInstances := 1
 global multiMCLocation := "C:\MultiMC\"
 global multiMCNameFormat := "1.16Inst#" ; Edit this to match your instance name formats (CASE SENSITIVE, beware) (the # signifies the instance number)
-global macro := "C:\Documents\TheWall\TheWall.ahk"
+global resetMacro := "C:\Documents\TheWall\TheWall.ahk"
 global launchPrograms := ["C:\Program Files\obs-studio\bin\64bit\obs64.exe", "E:\Documents\Speedrunning\Ninjabrain-Bot-1.2.0.jar", "E:\Documents\Speedrunning\resetTracker-icarus\resetTracker.exe"]
 ; If you don't want any programs auto launching (why not??) just set the above to []
 
@@ -39,13 +39,12 @@ while (checkIdx <= numInstances) {
     if (IsInstanceOpen(instDir)) {
         checkIdx++
     } else {
-        MsgBox, inst %instName% not open
         Sleep, 200
     }
 }
 
 Sleep, 1000
-SplitPath, macro, filename, dir
+SplitPath, resetMacro, filename, dir
 isOpen := False
 for proc in ComObjGet("winmgmts:").ExecQuery(Format("Select * from Win32_Process where CommandLine like ""%{1}%""", filename)) {
     isOpen := True
